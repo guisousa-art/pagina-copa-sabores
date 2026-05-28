@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Receitas + Copa do Mundo</title>
+    <meta
+      name="description"
+      content="Pagina especial de receitas inspiradas na Copa do Mundo."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <nav class="section-menu" aria-label="Menu principal">
+      <a class="brand" href="#inicio" aria-label="Receitas + Copa do Mundo">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Receitas + Copa</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="section-links"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+
+      <div class="nav-links" id="section-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#embed">Especial</a>
+        <a href="#links">Links</a>
+        <a href="#creditos">Creditos</a>
+      </div>
+    </nav>
+
+    <header class="site-header" id="inicio">
+      <div class="hero-content">
+        <p class="eyebrow">Copa do Mundo 2026</p>
+        <h1>Receitas de Copa do Mundo</h1>
+        <p class="hero-copy">
+          Sabores, paises e historias para acompanhar cada jogo.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section
+        class="map-section"
+        id="mapa"
+        aria-labelledby="map-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">Mapa interativo</p>
+          <h2 id="map-title">Explore os sabores pelo mundo</h2>
+        </div>
+
+        <div class="map-embed-shell">
+          <iframe
+            class="map-embed"
+            src="https://guisousa-art.github.io/copa-sabores/"
+            title="Copa Sabores"
+            loading="lazy"
+            allow="fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+
+      <section class="embed-section" id="embed" aria-labelledby="embed-title">
+        <div class="embed-slot">
+          <h2 class="sr-only" id="embed-title">Jogo especial da Copa</h2>
+          <iframe
+            class="game-embed"
+            src="https://s3.glbimg.com/v1/AUTH_e03f7a1106bb438e970511f892f07c35/receitas/2026/teste-copa-fruit-ninja/index.html"
+            title="Jogo especial da Copa"
+            loading="eager"
+            allow="autoplay; fullscreen; gamepad"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+
+      <section
+        class="links-section page-section"
+        id="links"
+        aria-labelledby="links-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">Links</p>
+          <h2 id="links-title">Atalhos da cobertura</h2>
+        </div>
+
+        <div class="link-grid" aria-label="Lista de links">
+          <a class="link-card" href="#" aria-disabled="true">
+            <span>Receitas</span>
+            <strong>Em breve</strong>
+          </a>
+          <a class="link-card" href="#" aria-disabled="true">
+            <span>Tabelas</span>
+            <strong>Em breve</strong>
+          </a>
+          <a class="link-card" href="#" aria-disabled="true">
+            <span>Guias</span>
+            <strong>Em breve</strong>
+          </a>
+          <a class="link-card" href="#" aria-disabled="true">
+            <span>Materias</span>
+            <strong>Em breve</strong>
+          </a>
+        </div>
+      </section>
+
+      <section
+        class="credits-section"
+        id="creditos"
+        aria-labelledby="credits-title"
+      >
+        <div class="credits-content">
+          <p class="eyebrow">Creditos</p>
+          <h2 id="credits-title">Receitas + Copa do Mundo</h2>
+          <dl class="credits-list">
+            <div>
+              <dt>Realizacao</dt>
+              <dd>Equipe Receitas</dd>
+            </div>
+            <div>
+              <dt>Design e desenvolvimento</dt>
+              <dd>A definir</dd>
+            </div>
+            <div>
+              <dt>Conteudo</dt>
+              <dd>A definir</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
