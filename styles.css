@@ -772,7 +772,10 @@ h2 {
 
   .hero-content {
     width: min(100% - 32px, 1180px);
+    margin-right: clamp(16px, 5vw, 28px);
+    margin-left: auto;
     padding-bottom: 58px;
+    transform: none;
   }
 
   .page-section {
@@ -800,7 +803,15 @@ h2 {
   }
 
   h1 {
-    font-size: clamp(3rem, 18vw, 5.8rem);
+    font-size: clamp(2.65rem, 16vw, 5.8rem);
+  }
+
+  .site-header h1 {
+    max-width: 8ch;
+  }
+
+  .hero-copy {
+    max-width: 34ch;
   }
 
   h2 {
