@@ -644,9 +644,8 @@ h2 {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url("./assets/bg_pos-jogo_desk.png") bottom left / 100% auto
+  background: url("./assets/bg_pos-jogo_desk.png") bottom right / 100% auto
     no-repeat;
-  transform: scaleX(-1);
 }
 
 .credits-content {
@@ -731,7 +730,7 @@ h2 {
   }
 
   .credits-section::before {
-    background: url("./assets/bg_pos-jogo_mob.png") bottom left / 100% auto
+    background: url("./assets/bg_pos-jogo_mob.png") bottom right / 100% auto
       no-repeat;
   }
 
