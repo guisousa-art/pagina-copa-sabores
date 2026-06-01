@@ -12,6 +12,7 @@
   --line: rgba(7, 47, 36, 0.14);
   --shadow: 0 24px 70px rgba(7, 47, 36, 0.16);
   --header-height: 76px;
+  --post-game-bg: #f0739b;
 }
 
 @font-face {
@@ -65,7 +66,7 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  background: var(--paper);
+  background: var(--post-game-bg);
   color: var(--ink);
   font-family:
     Inter,
@@ -330,6 +331,7 @@ a {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
   padding: 150px 0 clamp(56px, 12vw, 120px);
+  transform: translateX(-40px);  
   color: var(--surface);
 }
 
@@ -495,6 +497,30 @@ h2 {
   background: var(--green-900);
 }
 
+.links-section {
+  position: relative;
+  isolation: isolate;
+  margin-top: 200px;
+}
+
+.links-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  z-index: -1;
+  background:
+    url("./assets/bg_pos-jogo_desk.png") top left / 100% auto no-repeat,
+    var(--post-game-bg);
+  transform: translateX(-50%);
+}
+
+.links-section h2 {
+  color: #5a2864;
+}
+
 .link-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -510,7 +536,7 @@ h2 {
   overflow: hidden;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 24px;
   background: var(--surface);
   box-shadow: 0 14px 38px rgba(7, 47, 36, 0.08);
   transition:
@@ -521,7 +547,8 @@ h2 {
 .link-card:hover,
 .link-card:focus-visible {
   border-color: rgba(216, 73, 53, 0.42);
-  transform: translateY(-3px);
+  transform: translateY(-20px);
+  transform: scale(110%);  
   outline: none;
 }
 
@@ -573,8 +600,8 @@ h2 {
   z-index: 2;
   padding: 10px 14px;
   border-radius: 999px;
-  color: var(--green-900);
-  background: var(--yellow-500);
+  color: var(--yellow-00);
+  background: #dc33cf;
   font-family: "Gopher", sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
@@ -598,18 +625,34 @@ h2 {
 }
 
 .credits-section {
+  position: relative;
+  isolation: isolate;
   scroll-margin-top: var(--header-height);
-  margin-top: 10vh;
+  margin-top: 15vh;
   min-height: 100svh;
   display: grid;
   place-items: center;
+  overflow: hidden;
   padding: 92px 20px;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--post-game-bg);
+}
+
+.credits-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url("./assets/bg_pos-jogo_desk.png") bottom left / 100% auto
+    no-repeat;
+  transform: scaleX(-1);
 }
 
 .credits-content {
-  width: min(860px, 100%);
+  position: relative;
+  z-index: 1;
+  width: min(1180px, 100%);
 }
 
 .credits-section h2 {
@@ -679,6 +722,17 @@ h2 {
 
   .site-header {
     background-image: url("./assets/background_mob.png");
+  }
+
+  .links-section::before {
+    background:
+      url("./assets/bg_pos-jogo_mob.png") top left / 100% auto no-repeat,
+      var(--post-game-bg);
+  }
+
+  .credits-section::before {
+    background: url("./assets/bg_pos-jogo_mob.png") bottom left / 100% auto
+      no-repeat;
   }
 
   .menu-toggle {
