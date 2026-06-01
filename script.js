@@ -78,7 +78,8 @@ function updateMenuMode() {
         "--header-height",
       ),
     ) || sectionMenu.offsetHeight;
-  const headerLimit = header.offsetTop + header.offsetHeight - headerHeight;
+  const headerLimit =
+    header.offsetTop + header.offsetHeight * 0.35 - headerHeight;
   const isCompact = window.scrollY >= headerLimit;
 
   sectionMenu.classList.toggle("is-compact", isCompact);

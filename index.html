@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Receitas + Copa do Mundo</title>
+    <title>Sabores da Copa</title>
     <meta
       name="description"
       content="Pagina especial de receitas inspiradas na Copa do Mundo."
@@ -12,9 +12,17 @@
   </head>
   <body>
     <nav class="section-menu" aria-label="Menu principal">
-      <a class="brand" href="#inicio" aria-label="Receitas + Copa do Mundo">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Receitas + Copa</span>
+      <a
+        class="brand"
+        href="https://receitas.globo.com/tudo-sobre/copa-do-mundo/"
+        aria-label="Sabores da Copa"
+      >
+        <img
+          class="brand-logo"
+          src="./assets/logo-menu.svg"
+          alt=""
+          aria-hidden="true"
+        />
       </a>
 
       <button
@@ -30,20 +38,28 @@
       </button>
 
       <div class="nav-links" id="section-links">
-        <a href="#inicio">Inicio</a>
+        <a href="#inicio">Início</a>
         <a href="#mapa">Mapa</a>
-        <a href="#embed">Especial</a>
+        <a href="#embed">Fute Ninja</a>
         <a href="#links">Links</a>
-        <a href="#creditos">Creditos</a>
+        <a href="#creditos">Créditos</a>
       </div>
     </nav>
 
     <header class="site-header" id="inicio">
       <div class="hero-content">
-        <p class="eyebrow">Copa do Mundo 2026</p>
-        <h1>Receitas de Copa do Mundo</h1>
+        <div class="hero-kicker">
+          <img
+            class="hero-mark"
+            src="./assets/logo_red.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <p class="eyebrow">Copa do Mundo 2026</p>
+        </div>
+        <h1><span class="h1-regular">Especial</span><br>Copa do Mundo 2026</h1>
         <p class="hero-copy">
-          Sabores, paises e historias para acompanhar cada jogo.
+          Descubra as receitas tradicionais dos países da Copa 2026
         </p>
       </div>
     </header>
@@ -91,26 +107,30 @@
         aria-labelledby="links-title"
       >
         <div class="section-heading">
-          <p class="eyebrow">Links</p>
-          <h2 id="links-title">Atalhos da cobertura</h2>
+          <p class="eyebrow">Links relacionados</p>
+          <h2 id="links-title">Saiba mais</h2>
         </div>
 
         <div class="link-grid" aria-label="Lista de links">
           <a class="link-card" href="#" aria-disabled="true">
-            <span>Receitas</span>
-            <strong>Em breve</strong>
+            <span class="link-card-image" aria-hidden="true"></span>
+            <strong>Receitas</strong>
+            <span class="link-card-cta">Saiba mais</span>
           </a>
           <a class="link-card" href="#" aria-disabled="true">
-            <span>Tabelas</span>
-            <strong>Em breve</strong>
+            <span class="link-card-image" aria-hidden="true"></span>
+            <strong>Tabelas</strong>
+            <span class="link-card-cta">Saiba mais</span>
           </a>
           <a class="link-card" href="#" aria-disabled="true">
-            <span>Guias</span>
-            <strong>Em breve</strong>
+            <span class="link-card-image" aria-hidden="true"></span>
+            <strong>Guias</strong>
+            <span class="link-card-cta">Saiba mais</span>
           </a>
           <a class="link-card" href="#" aria-disabled="true">
-            <span>Materias</span>
-            <strong>Em breve</strong>
+            <span class="link-card-image" aria-hidden="true"></span>
+            <strong>Matérias</strong>
+            <span class="link-card-cta">Saiba mais</span>
           </a>
         </div>
       </section>
@@ -121,19 +141,44 @@
         aria-labelledby="credits-title"
       >
         <div class="credits-content">
-          <p class="eyebrow">Creditos</p>
-          <h2 id="credits-title">Receitas + Copa do Mundo</h2>
+          <h2 id="credits-title">Créditos</h2>
           <dl class="credits-list">
             <div>
-              <dt>Realizacao</dt>
-              <dd>Equipe Receitas</dd>
+              <dt>Conteúdo</dt>
+              <dd>
+                <span class="credit-person">
+                  <span class="credit-role">Coordenadora</span>
+                  <span class="credit-name">Mariana Mortani</span>
+                </span>
+                <span class="credit-person">
+                  <span class="credit-role">Editor de Conteúdo</span>
+                  <span class="credit-name">Victor Mascarenhas</span>
+                </span>
+                <span class="credit-person">
+                  <span class="credit-role">Analista de SEO</span>
+                  <span class="credit-name">Laci Farias</span>
+                </span>
+              </dd>
             </div>
             <div>
               <dt>Design e desenvolvimento</dt>
-              <dd>A definir</dd>
+              <dd>
+                <span class="credit-person">
+                  <span class="credit-role">Coordenador</span>
+                  <span class="credit-name">Julio Dubiella</span>
+                </span>
+                <span class="credit-person">
+                  <span class="credit-role">Design</span>
+                  <span class="credit-name">Juan Silva, Gabs e Gui Sousa</span>
+                </span>
+                <span class="credit-person">
+                  <span class="credit-role">Desenvolvimento</span>
+                  <span class="credit-name">Gabs e Gui Sousa</span>
+                </span>
+              </dd>
             </div>
             <div>
-              <dt>Conteudo</dt>
+              <dt>Produto</dt>
               <dd>A definir</dd>
             </div>
           </dl>
