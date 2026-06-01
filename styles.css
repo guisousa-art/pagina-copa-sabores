@@ -518,7 +518,7 @@ h2 {
 }
 
 .links-section h2 {
-  color: #5a2864;
+  color: var(--green-900);
 }
 
 .link-grid {
