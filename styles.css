@@ -78,6 +78,16 @@ body {
     sans-serif;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("./assets/mouse-icone.svg") 0 0, auto;
+  }
+
+  body:active {
+    cursor: url("./assets/mouse-icone-click.svg") 0 0, auto;
+  }
+}
+
 html.is-gameplay-locked,
 html.is-gameplay-locked body {
   overflow: hidden;
