@@ -79,11 +79,15 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  body {
+  html,
+  body,
+  body * {
     cursor: url("./assets/mouse-icone.svg") 0 0, auto;
   }
 
-  body:active {
+  html:active,
+  body:active,
+  body:active * {
     cursor: url("./assets/mouse-icone-click.svg") 0 0, auto;
   }
 }
