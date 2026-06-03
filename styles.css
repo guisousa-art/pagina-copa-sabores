@@ -90,6 +90,16 @@ body {
   body:active * {
     cursor: url("./assets/mouse-icone-click.svg") 0 0, auto;
   }
+
+  .map-embed-shell,
+  .map-embed {
+    cursor: url("./assets/mouse-icone.svg") 0 0, auto !important;
+  }
+
+  .map-embed-shell:active,
+  .map-embed:active {
+    cursor: url("./assets/mouse-icone-click.svg") 0 0, auto !important;
+  }
 }
 
 html.is-gameplay-locked,
