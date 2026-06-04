@@ -827,6 +827,20 @@ h2 {
     padding: 14px 12px;
   }
 
+  .section-menu.is-compact {
+    width: 51.2px;
+    min-height: 51.2px;
+  }
+
+  .section-menu.is-compact .menu-toggle {
+    width: 51.2px;
+    height: 51.2px;
+  }
+
+  .hero-kicker {
+    display: none;
+  }
+
   .hero-content {
     width: min(100% - 32px, 1180px);
     margin-right: clamp(16px, 5vw, 28px);
