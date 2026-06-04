@@ -360,7 +360,7 @@ a {
 }
 
 .hero-kicker {
-  display: flex;
+  display: none;
   align-items: flex-end;
   gap: 12px;
   margin-bottom: 12px;
@@ -389,14 +389,14 @@ a {
 
 h1,
 h2 {
-  max-width: 920px;
+  max-width: 960px;
   margin: 0;
   line-height: 0.98;
   letter-spacing: 0;
 }
 
 h1 {
-  font-size: clamp(3.25rem, 10vw, 8.7rem);
+  font-size: clamp(2.925rem, 9vw, 7.83rem);
 }
 
 .site-header h1 {
@@ -837,10 +837,6 @@ h2 {
     height: 51.2px;
   }
 
-  .hero-kicker {
-    display: none;
-  }
-
   .hero-content {
     width: min(100% - 32px, 1180px);
     margin-right: clamp(16px, 5vw, 28px);
@@ -874,7 +870,7 @@ h2 {
   }
 
   h1 {
-    font-size: clamp(2.65rem, 16vw, 5.8rem);
+    font-size: clamp(2.385rem, 14.4vw, 5.22rem);
   }
 
   .site-header h1 {
@@ -883,6 +879,7 @@ h2 {
 
   .hero-copy {
     max-width: 34ch;
+    margin-top: 12px;
   }
 
   h2 {
