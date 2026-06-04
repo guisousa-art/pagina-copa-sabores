@@ -638,10 +638,12 @@ h2 {
   font-family: "Gopher", sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
+  transition: transform 180ms ease;
 }
 
 .link-card-cta {
   position: absolute;
+  left: 16px;
   right: 16px;
   bottom: 16px;
   z-index: 2;
@@ -652,6 +654,8 @@ h2 {
   font-family: "Gopher", sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
   opacity: 0;
   pointer-events: none;
   transform: translateY(8px);
@@ -663,6 +667,11 @@ h2 {
 .link-card:hover .link-card-image,
 .link-card:focus-visible .link-card-image {
   transform: scale(1.04);
+}
+
+.link-card:hover strong,
+.link-card:focus-visible strong {
+  transform: translateY(-58px);
 }
 
 .link-card:hover .link-card-cta,
