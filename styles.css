@@ -711,6 +711,7 @@ h2 {
   font-family: "Gopher", sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
   transition: transform 180ms ease;
 }
 
@@ -954,6 +955,12 @@ h2 {
   .link-card:hover strong,
   .link-card:focus-visible strong {
     transform: translateY(-44px);
+  }
+
+  .link-card-vra strong,
+  .link-card-vra:hover strong,
+  .link-card-vra:focus-visible strong {
+    transform: translateY(-58px);
   }
 
   .link-card-cta,
