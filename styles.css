@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: "Gopher";
-  src: url("./assets/Gopher/Gopher-Bold.ttf") format("truetype");
+  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: "Gopher";
-  src: url("./assets/Gopher/Gopher-Regular.ttf") format("truetype");
+  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: "Gopher";
-  src: url("./assets/Gopher/Gopher-Black.ttf") format("truetype");
+  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -41,7 +41,7 @@
 
 @font-face {
   font-family: "Globo Tx";
-  src: url("./assets/GLOBOTIPO/Globo Tx Th.ttf") format("truetype");
+  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Th.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -49,7 +49,7 @@
 
 @font-face {
   font-family: "Globo Tx";
-  src: url("./assets/GLOBOTIPO/Globo Tx Lt.ttf") format("truetype");
+  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Lt.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -82,23 +82,23 @@ body {
   html,
   body,
   body * {
-    cursor: url("./assets/mouse-icone.svg") 0 0, auto;
+    cursor: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/mouse-icone.svg") 0 0, auto;
   }
 
   html:active,
   body:active,
   body:active * {
-    cursor: url("./assets/mouse-icone-click.svg") 0 0, auto;
+    cursor: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/mouse-icone-click.svg") 0 0, auto;
   }
 
   .map-embed-shell,
   .map-embed {
-    cursor: url("./assets/mouse-icone.svg") 0 0, auto !important;
+    cursor: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/mouse-icone.svg") 0 0, auto !important;
   }
 
   .map-embed-shell:active,
   .map-embed:active {
-    cursor: url("./assets/mouse-icone-click.svg") 0 0, auto !important;
+    cursor: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/mouse-icone-click.svg") 0 0, auto !important;
   }
 }
 
@@ -139,7 +139,7 @@ a {
   isolation: isolate;
   overflow: hidden;
   background:
-    #0f3228 url("./assets/background_desk.webp") center / cover no-repeat;
+    #0f3228 url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/background_desk.webp") center / cover no-repeat;
 }
 
 .site-header::after {
@@ -187,7 +187,7 @@ a {
   inset: 0;
   z-index: -1;
   opacity: 0;
-  background: url("./assets/collapsed_menu.svg") center / contain no-repeat;
+  background: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/collapsed_menu.svg") center / contain no-repeat;
   transform: rotate(90deg);
   transform-origin: center;
 }
@@ -400,13 +400,48 @@ h1 {
 }
 
 .site-header h1 {
-  color: #a5147d;
+  color: #ffc700;
   font-family: "Gopher", sans-serif;
   font-weight: 700;
 }
 
 .h1-regular {
   font-weight: 400;
+}
+
+.hero-title-logo {
+  display: block;
+  width: min(2.25em, 100%);
+  height: auto;
+  margin-top: 0.14em;
+  margin-bottom: 0.30em;
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-title-line-top {
+  font-size: 0.68em;
+  line-height: 1;
+}
+
+.hero-title-line-bottom {
+  font-size: 1em;
+  line-height: 1;
+}
+
+@media (min-width: 861px) {
+  .site-header h1 {
+    max-width: none;
+    font-size: clamp(5.4rem, 8.9vw, 9.6rem);
+    line-height: 0.9;
+  }
+
+  .hero-title-logo {
+    width: min(1.92em, 100%);
+    margin-bottom: 0.30em;
+  }
 }
 
 h2 {
@@ -584,7 +619,7 @@ h2 {
   width: min(100vw, 1920px);
   z-index: -1;
   background:
-    url("./assets/bg_pos-jogo_desk.webp") top left / 100% auto no-repeat,
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/bg_pos-jogo_desk.webp") top left / 100% auto no-repeat,
     var(--post-game-bg);
   transform: translateX(-50%);
   pointer-events: none;
@@ -750,7 +785,7 @@ h2 {
   left: 50%;
   width: min(100vw, 2000px);
   z-index: -1;
-  background: url("./assets/bg_creditos.webp") top right / 100% auto no-repeat;
+  background: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/bg_creditos.webp") top right / 100% auto no-repeat;
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -811,17 +846,17 @@ h2 {
   }
 
   .site-header {
-    background-image: url("./assets/background_mob.webp");
+    background-image: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/background_mob.webp");
   }
 
   .link-grid::before {
     background:
-      url("./assets/bg_pos-jogo_mob.webp") top left / 100% auto no-repeat,
+      url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/bg_pos-jogo_mob.webp") top left / 100% auto no-repeat,
       var(--post-game-bg);
   }
 
   .credits-list::before {
-    background: url("./assets/bg_pos-jogo_mob.webp") top right / 100% auto
+    background: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/bg_pos-jogo_mob.webp") top right / 100% auto
       no-repeat;
   }
 
