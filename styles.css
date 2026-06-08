@@ -33,6 +33,14 @@
 
 @font-face {
   font-family: "Gopher";
+  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/Gopher/Gopher-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gopher";
   src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
@@ -422,7 +430,8 @@ h1 {
 }
 
 .hero-title-line-top {
-  font-size: 0.68em;
+  font-size: 0.62em;
+  font-weight: 300;
   line-height: 1;
 }
 
