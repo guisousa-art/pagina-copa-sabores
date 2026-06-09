@@ -13,11 +13,14 @@
   --shadow: 0 24px 70px rgba(7, 47, 36, 0.16);
   --header-height: 76px;
   --post-game-bg: #f0739b;
+  --popup-bg: #dc33cf;
 }
 
 @font-face {
   font-family: "Gopher";
-  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Bold.ttf") format("truetype");
+  src:
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Bold.woff2") format("woff2"),
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -25,7 +28,9 @@
 
 @font-face {
   font-family: "Gopher";
-  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Regular.ttf") format("truetype");
+  src:
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Regular.woff2") format("woff2"),
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -33,23 +38,19 @@
 
 @font-face {
   font-family: "Gopher";
-  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/Gopher/Gopher-Light.ttf") format("truetype");
+  src:
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Light.woff2") format("woff2"),
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/Gopher/Gopher-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Gopher";
-  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/Gopher-Black.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Globo Tx";
-  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Th.ttf") format("truetype");
+  src:
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Th.woff2") format("woff2"),
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Th.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -57,7 +58,9 @@
 
 @font-face {
   font-family: "Globo Tx";
-  src: url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Lt.ttf") format("truetype");
+  src:
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Lt.woff2") format("woff2"),
+    url("https://s3.glbimg.com/v1/AUTH_a6ffa1815e2a466c92e4f50645c1a372/receitas/2026/sabores_copa-do-mundo/pagina/assets/fonts/GloboTx-Lt.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -367,21 +370,6 @@ a {
   color: var(--surface);
 }
 
-.hero-kicker {
-  display: none;
-  align-items: flex-end;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.hero-mark {
-  width: 65px;
-  aspect-ratio: 1;
-  flex: 0 0 auto;
-  display: block;
-  transform: translateX(12%);
-}
-
 .eyebrow {
   margin: 0 0 12px;
   color: #0f3228;
@@ -389,10 +377,6 @@ a {
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
-}
-
-.hero-kicker .eyebrow {
-  margin: 0;
 }
 
 h1,
@@ -642,18 +626,15 @@ h2 {
   align-items: end;
   overflow: hidden;
   padding: 0;
-  border: 3px solid var(--line);
+  border: 0;
   border-radius: 24px;
   background: var(--surface);
   box-shadow: 0 14px 38px rgba(7, 47, 36, 0.08);
-  transition:
-    border-color 160ms ease,
-    transform 160ms ease;
+  transition: transform 160ms ease;
 }
 
 .link-card:hover,
 .link-card:focus-visible {
-  border-color: rgba(216, 73, 53, 0.42);
   transform: translateY(-20px);
   transform: scale(110%);  
   outline: none;
@@ -724,7 +705,7 @@ h2 {
   padding: 10px 14px;
   border-radius: 999px;
   color: var(--surface);
-  background: #dc33cf;
+  background: var(--popup-bg);
   font-family: "Gopher", sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
@@ -740,7 +721,7 @@ h2 {
 
 .link-card:hover .link-card-image,
 .link-card:focus-visible .link-card-image {
-  transform: scale(1.04);
+  transform: none;
 }
 
 .link-card:hover strong,
@@ -947,7 +928,6 @@ h2 {
 
   .link-card:hover,
   .link-card:focus-visible {
-    border-color: var(--line);
     transform: none;
   }
 
