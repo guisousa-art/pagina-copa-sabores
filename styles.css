@@ -406,7 +406,7 @@ h1 {
   width: min(2.25em, 100%);
   height: auto;
   margin-top: 0.14em;
-  margin-bottom: 0.30em;
+  margin-bottom: 0.16em;
 }
 
 .hero-title-line {
@@ -433,7 +433,7 @@ h1 {
 
   .hero-title-logo {
     width: min(1.92em, 100%);
-    margin-bottom: 0.30em;
+    margin-bottom: 0.16em;
   }
 }
 
@@ -556,6 +556,7 @@ h2 {
 .links-section {
   position: relative;
   isolation: isolate;
+  margin-top: clamp(56px, 8vw, 112px);
 }
 
 .links-section h2 {
@@ -742,6 +743,7 @@ h2 {
   display: grid;
   place-items: center;
   overflow: hidden;
+  margin-top: clamp(56px, 8vw, 112px);
   padding: 92px 20px 0;
   color: var(--ink);
   background: var(--post-game-bg);
