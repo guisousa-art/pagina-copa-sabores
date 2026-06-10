@@ -56,10 +56,16 @@ const freeScrollStateHints = [
   "receita",
   "settings",
 ];
-const gameEmbedOrigin = gameEmbed
-  ? new URL(gameEmbed.getAttribute("src"), window.location.href).origin
+const gameEmbedSrc = gameEmbed
+  ? gameEmbed.getAttribute("src") || ""
   : "";
+const gameEmbedOrigin = gameEmbedSrc
+  ? new URL(gameEmbedSrc, window.location.href).origin
+  : "";
+const gameAudioViewportThreshold = 0.55;
 let isGameScrollLocked = false;
+let isGameAudioAllowed = null;
+let gameAudioUpdateFrame = 0;
 
 function setMenuOpen(isOpen) {
   navLinks.classList.toggle("is-open", isOpen);
@@ -117,6 +123,79 @@ function lockGameScroll() {
 function unlockGameScroll() {
   isGameScrollLocked = false;
   document.documentElement.classList.remove("is-gameplay-locked");
+}
+
+function getGameViewportCoverage() {
+  if (!embedSection) {
+    return 0;
+  }
+
+  const rect = embedSection.getBoundingClientRect();
+  const viewportHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const visibleHeight =
+    Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+
+  if (viewportHeight <= 0 || visibleHeight <= 0) {
+    return 0;
+  }
+
+  return Math.min(1, visibleHeight / viewportHeight);
+}
+
+function postGameAudioMessage(shouldAllowAudio) {
+  if (!gameEmbed || !gameEmbed.contentWindow) {
+    return;
+  }
+
+  gameEmbed.contentWindow.postMessage(
+    {
+      type: "copa-game:audio-visibility",
+      allowed: shouldAllowAudio,
+      muted: !shouldAllowAudio,
+      viewportCoverage: getGameViewportCoverage(),
+    },
+    gameEmbedOrigin,
+  );
+}
+
+function setGameAudioAllowed(shouldAllowAudio, { force = false } = {}) {
+  const nextAllowed = Boolean(shouldAllowAudio);
+
+  if (!force && isGameAudioAllowed === nextAllowed) {
+    return;
+  }
+
+  isGameAudioAllowed = nextAllowed;
+
+  if (gameEmbed) {
+    gameEmbed.dataset.viewportAudio = nextAllowed ? "allowed" : "muted";
+  }
+
+  postGameAudioMessage(nextAllowed);
+}
+
+function updateGameAudioFromViewport() {
+  if (!embedSection || !gameEmbed) {
+    return;
+  }
+
+  const shouldAllowAudio =
+    !document.hidden &&
+    getGameViewportCoverage() >= gameAudioViewportThreshold;
+
+  setGameAudioAllowed(shouldAllowAudio);
+}
+
+function queueGameAudioViewportUpdate() {
+  if (gameAudioUpdateFrame) {
+    return;
+  }
+
+  gameAudioUpdateFrame = window.requestAnimationFrame(() => {
+    gameAudioUpdateFrame = 0;
+    updateGameAudioFromViewport();
+  });
 }
 
 function getStateToken(value) {
@@ -205,17 +284,36 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener("scroll", updateMenuMode, { passive: true });
+window.addEventListener(
+  "scroll",
+  () => {
+    updateMenuMode();
+    queueGameAudioViewportUpdate();
+  },
+  { passive: true },
+);
 window.addEventListener("resize", () => {
   updateMenuMode();
+  queueGameAudioViewportUpdate();
 
   if (isGameScrollLocked) {
     centerGameInViewport();
   }
 });
-window.addEventListener("load", updateMenuMode);
+window.addEventListener("load", () => {
+  updateMenuMode();
+  updateGameAudioFromViewport();
+});
 window.addEventListener("message", handleGameMessage);
+document.addEventListener("visibilitychange", updateGameAudioFromViewport);
 updateMenuMode();
+updateGameAudioFromViewport();
+
+if (gameEmbed) {
+  gameEmbed.addEventListener("load", () => {
+    setGameAudioAllowed(isGameAudioAllowed ?? false, { force: true });
+  });
+}
 
 document.querySelectorAll('[aria-disabled="true"]').forEach((item) => {
   item.addEventListener("click", (event) => {
@@ -243,3 +341,14 @@ const observer = new IntersectionObserver(
 );
 
 sections.forEach((section) => observer.observe(section));
+
+if (embedSection && gameEmbed) {
+  const gameAudioObserver = new IntersectionObserver(
+    updateGameAudioFromViewport,
+    {
+      threshold: [0, 0.25, 0.5, gameAudioViewportThreshold, 0.75, 1],
+    },
+  );
+
+  gameAudioObserver.observe(embedSection);
+}
