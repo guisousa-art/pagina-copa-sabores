@@ -4,6 +4,7 @@ const navLinks = document.querySelector(".nav-links");
 const navItems = [...document.querySelectorAll(".nav-links a")];
 const header = document.querySelector(".site-header");
 const menuLabel = menuToggle.querySelector(".sr-only");
+const mapEmbed = document.querySelector(".map-embed");
 const embedSection = document.querySelector(".embed-section");
 const gameEmbed = document.querySelector(".game-embed");
 const sections = navItems
@@ -62,7 +63,7 @@ const gameEmbedSrc = gameEmbed
 const gameEmbedOrigin = gameEmbedSrc
   ? new URL(gameEmbedSrc, window.location.href).origin
   : "";
-const gameAudioViewportThreshold = 0.55;
+const gameAudioViewportThreshold = 0.8;
 let isGameScrollLocked = false;
 let isGameAudioAllowed = null;
 let gameAudioUpdateFrame = 0;
@@ -143,6 +144,35 @@ function getGameViewportCoverage() {
   return Math.min(1, visibleHeight / viewportHeight);
 }
 
+function isGamePrimaryInViewport() {
+  if (!embedSection) {
+    return false;
+  }
+
+  const rect = embedSection.getBoundingClientRect();
+  const viewportHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const viewportCenterY = viewportHeight / 2;
+
+  return (
+    getGameViewportCoverage() >= gameAudioViewportThreshold &&
+    rect.top <= viewportCenterY &&
+    rect.bottom >= viewportCenterY
+  );
+}
+
+function isAnotherEmbedFocused() {
+  const activeElement = document.activeElement;
+
+  return (
+    activeElement &&
+    activeElement.tagName === "IFRAME" &&
+    activeElement !== gameEmbed &&
+    (activeElement === mapEmbed ||
+      activeElement.classList.contains("map-embed"))
+  );
+}
+
 function postGameAudioMessage(shouldAllowAudio) {
   if (!gameEmbed || !gameEmbed.contentWindow) {
     return;
@@ -175,16 +205,17 @@ function setGameAudioAllowed(shouldAllowAudio, { force = false } = {}) {
   postGameAudioMessage(nextAllowed);
 }
 
-function updateGameAudioFromViewport() {
+function updateGameAudioFromViewport({ force = false } = {}) {
   if (!embedSection || !gameEmbed) {
     return;
   }
 
   const shouldAllowAudio =
     !document.hidden &&
-    getGameViewportCoverage() >= gameAudioViewportThreshold;
+    isGamePrimaryInViewport() &&
+    !isAnotherEmbedFocused();
 
-  setGameAudioAllowed(shouldAllowAudio);
+  setGameAudioAllowed(shouldAllowAudio, { force });
 }
 
 function queueGameAudioViewportUpdate() {
@@ -238,6 +269,7 @@ function getGameStateFromMessage(data) {
 function handleGameState({ state, unlockUnknownState = false }) {
   if (gameplayStates.has(state)) {
     lockGameScroll();
+    queueGameAudioViewportUpdate();
     return;
   }
 
@@ -247,6 +279,7 @@ function handleGameState({ state, unlockUnknownState = false }) {
     (unlockUnknownState && state)
   ) {
     unlockGameScroll();
+    queueGameAudioViewportUpdate();
   }
 }
 
@@ -306,12 +339,15 @@ window.addEventListener("load", () => {
 });
 window.addEventListener("message", handleGameMessage);
 document.addEventListener("visibilitychange", updateGameAudioFromViewport);
+document.addEventListener("focusin", queueGameAudioViewportUpdate);
+window.addEventListener("blur", queueGameAudioViewportUpdate);
+window.addEventListener("focus", queueGameAudioViewportUpdate);
 updateMenuMode();
 updateGameAudioFromViewport();
 
 if (gameEmbed) {
   gameEmbed.addEventListener("load", () => {
-    setGameAudioAllowed(isGameAudioAllowed ?? false, { force: true });
+    updateGameAudioFromViewport({ force: true });
   });
 }
 
