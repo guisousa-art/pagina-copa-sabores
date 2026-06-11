@@ -63,10 +63,14 @@ const gameEmbedSrc = gameEmbed
 const gameEmbedOrigin = gameEmbedSrc
   ? new URL(gameEmbedSrc, window.location.href).origin
   : "";
-const gameAudioViewportThreshold = 0.8;
+const gameAudioViewportThreshold = 0.5;
+const mutedMediaStates = new WeakMap();
+const watchedAudioFrames = new WeakSet();
 let isGameScrollLocked = false;
 let isGameAudioAllowed = null;
+let isPageAudioMuted = null;
 let gameAudioUpdateFrame = 0;
+let gameAudioMessageSequence = 0;
 
 function setMenuOpen(isOpen) {
   navLinks.classList.toggle("is-open", isOpen);
@@ -155,13 +159,13 @@ function isGamePrimaryInViewport() {
   const viewportCenterY = viewportHeight / 2;
 
   return (
-    getGameViewportCoverage() >= gameAudioViewportThreshold &&
+    getGameViewportCoverage() > gameAudioViewportThreshold &&
     rect.top <= viewportCenterY &&
     rect.bottom >= viewportCenterY
   );
 }
 
-function isAnotherEmbedFocused() {
+function isNonGameEmbedFocused() {
   const activeElement = document.activeElement;
 
   return (
@@ -173,26 +177,111 @@ function isAnotherEmbedFocused() {
   );
 }
 
-function postGameAudioMessage(shouldAllowAudio) {
+function postGameAudioMessage(shouldAllowAudio, { repeat = false } = {}) {
   if (!gameEmbed || !gameEmbed.contentWindow) {
     return;
   }
 
-  gameEmbed.contentWindow.postMessage(
-    {
-      type: "copa-game:audio-visibility",
-      allowed: shouldAllowAudio,
-      muted: !shouldAllowAudio,
-      viewportCoverage: getGameViewportCoverage(),
-    },
-    gameEmbedOrigin,
-  );
+  const messageSequence = ++gameAudioMessageSequence;
+  const sendMessage = () => {
+    if (messageSequence !== gameAudioMessageSequence) {
+      return;
+    }
+
+    gameEmbed.contentWindow.postMessage(
+      {
+        type: "copa-game:audio-visibility",
+        allowed: shouldAllowAudio,
+        muted: !shouldAllowAudio,
+        viewportCoverage: getGameViewportCoverage(),
+      },
+      gameEmbedOrigin,
+    );
+  };
+
+  sendMessage();
+
+  if (repeat) {
+    [120, 360, 900, 1500].forEach((delay) => {
+      window.setTimeout(sendMessage, delay);
+    });
+  }
+}
+
+function forEachAccessibleMedia(callback, root = document) {
+  root.querySelectorAll("audio, video").forEach(callback);
+
+  root.querySelectorAll("iframe").forEach((frame) => {
+    try {
+      const frameDocument = frame.contentDocument;
+
+      if (frameDocument) {
+        forEachAccessibleMedia(callback, frameDocument);
+      }
+    } catch {
+      // Cross-origin embeds can only be controlled through postMessage.
+    }
+  });
+}
+
+function muteMediaElement(mediaElement) {
+  if (!mutedMediaStates.has(mediaElement)) {
+    mutedMediaStates.set(mediaElement, {
+      muted: mediaElement.muted,
+    });
+  }
+
+  mediaElement.muted = true;
+}
+
+function restoreMediaElement(mediaElement) {
+  const previousState = mutedMediaStates.get(mediaElement);
+
+  if (!previousState) {
+    return;
+  }
+
+  mediaElement.muted = previousState.muted;
+  mutedMediaStates.delete(mediaElement);
+}
+
+function watchFrameAudioLoad(frame) {
+  if (watchedAudioFrames.has(frame)) {
+    return;
+  }
+
+  watchedAudioFrames.add(frame);
+  frame.addEventListener("load", () => {
+    if (isPageAudioMuted !== null) {
+      setPageAudioMuted(isPageAudioMuted, { force: true });
+    }
+  });
+}
+
+function watchPageAudioNodes() {
+  document.querySelectorAll("iframe").forEach(watchFrameAudioLoad);
+}
+
+function setPageAudioMuted(shouldMute, { force = false } = {}) {
+  const nextMuted = Boolean(shouldMute);
+
+  if (!force && isPageAudioMuted === nextMuted) {
+    return;
+  }
+
+  isPageAudioMuted = nextMuted;
+  forEachAccessibleMedia(nextMuted ? muteMediaElement : restoreMediaElement);
 }
 
 function setGameAudioAllowed(shouldAllowAudio, { force = false } = {}) {
   const nextAllowed = Boolean(shouldAllowAudio);
 
   if (!force && isGameAudioAllowed === nextAllowed) {
+    if (!nextAllowed) {
+      setPageAudioMuted(true, { force: true });
+      postGameAudioMessage(false);
+    }
+
     return;
   }
 
@@ -202,7 +291,8 @@ function setGameAudioAllowed(shouldAllowAudio, { force = false } = {}) {
     gameEmbed.dataset.viewportAudio = nextAllowed ? "allowed" : "muted";
   }
 
-  postGameAudioMessage(nextAllowed);
+  setPageAudioMuted(!nextAllowed, { force });
+  postGameAudioMessage(nextAllowed, { repeat: force || !nextAllowed });
 }
 
 function updateGameAudioFromViewport({ force = false } = {}) {
@@ -213,7 +303,7 @@ function updateGameAudioFromViewport({ force = false } = {}) {
   const shouldAllowAudio =
     !document.hidden &&
     isGamePrimaryInViewport() &&
-    !isAnotherEmbedFocused();
+    !isNonGameEmbedFocused();
 
   setGameAudioAllowed(shouldAllowAudio, { force });
 }
@@ -339,14 +429,43 @@ window.addEventListener("load", () => {
 });
 window.addEventListener("message", handleGameMessage);
 document.addEventListener("visibilitychange", updateGameAudioFromViewport);
+document.addEventListener(
+  "play",
+  (event) => {
+    if (isPageAudioMuted && event.target instanceof HTMLMediaElement) {
+      muteMediaElement(event.target);
+    }
+  },
+  true,
+);
 document.addEventListener("focusin", queueGameAudioViewportUpdate);
 window.addEventListener("blur", queueGameAudioViewportUpdate);
 window.addEventListener("focus", queueGameAudioViewportUpdate);
+watchPageAudioNodes();
 updateMenuMode();
 updateGameAudioFromViewport();
 
+const pageAudioObserver = new MutationObserver(() => {
+  watchPageAudioNodes();
+
+  if (isPageAudioMuted !== null) {
+    setPageAudioMuted(isPageAudioMuted, { force: true });
+  }
+});
+
+pageAudioObserver.observe(document.documentElement, {
+  childList: true,
+  subtree: true,
+});
+
 if (gameEmbed) {
   gameEmbed.addEventListener("load", () => {
+    updateGameAudioFromViewport({ force: true });
+  });
+}
+
+if (mapEmbed) {
+  mapEmbed.addEventListener("focus", () => {
     updateGameAudioFromViewport({ force: true });
   });
 }
@@ -382,7 +501,7 @@ if (embedSection && gameEmbed) {
   const gameAudioObserver = new IntersectionObserver(
     updateGameAudioFromViewport,
     {
-      threshold: [0, 0.25, 0.5, gameAudioViewportThreshold, 0.75, 1],
+      threshold: [0, 0.25, gameAudioViewportThreshold, 0.75, 1],
     },
   );
 
